@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE")
+    }
+}
+
+group 'io.veredictum'
+version '0.1.0'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile (
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.kafka:spring-kafka:1.2.2.RELEASE",
+            "org.web3j:core:2.3.0"
+    )
+
+    testCompile (
+            'org.springframework.boot:spring-boot-starter-test',
+            'org.springframework.kafka:spring-kafka-test:1.2.2.RELEASE',
+            'org.junit.jupiter:junit-jupiter-engine:5.0.0-RC2'
+    )
+}
+
+task deleteSolCompiled(type: Delete) {
+    delete 'solCompiled'
+}
+
+task compileSol {
+    doLast {
+        mkdir 'solCompiled'
+        exec {
+            executable 'solc'
+            args 'src/main/sol/ContentAssetRegistrar.sol', '--bin', '--abi', '--optimize', '-o', 'solCompiled'
+        }
+    }
+}
+
+task generateSolWrapper {
+    doLast{
+        exec {
+            executable 'web3j'
+            args 'solidity', 'generate', 'solCompiled/ContentAssetRegistrar.bin', 'solCompiled/ContentAssetRegistrar.abi', '-o', 'src/main/java', '-p', 'io.veredictum.generated'
+        }
+    }
+}
+
+generateSolWrapper.dependsOn compileSol
+compileSol.dependsOn deleteSolCompiled
