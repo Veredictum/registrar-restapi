@@ -2,6 +2,8 @@ package io.veredictum.registrar.service;
 
 import io.veredictum.registrar.model.ContentRegistrarRequest;
 import io.veredictum.registrar.util.Hasher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.web3j.abi.FunctionEncoder;
@@ -39,6 +41,7 @@ public class RegistrarService {
     private static final int SLEEP_DURATION = 15000;
     private static final int ATTEMPTS = 40;
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Value("${ethereum.account.password}")
     private String ethereumAccountPassword;
@@ -64,6 +67,7 @@ public class RegistrarService {
         request.setContentId(System.currentTimeMillis()); // set dummy unique contentId
         request.setOriginalFileHash(Hasher.hashString("" + request.getContentId()));
         request.setTranscodedFileHash(Hasher.hashString("" + (Long.MAX_VALUE - request.getContentId())));
+        logger.info("Content registrar request: " + request);
         Credentials credentials = WalletUtils.loadCredentials(ethereumAccountPassword, ethereumKeyStoreFile);
         List<Type> inputParameters = new ArrayList<>();
         inputParameters.add(convert(request.getAddresses()));

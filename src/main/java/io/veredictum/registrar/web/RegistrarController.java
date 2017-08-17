@@ -43,7 +43,7 @@ public class RegistrarController {
 
     @RequestMapping(path = "/register/content", method = RequestMethod.POST)
     ResponseEntity<?> registerContent(@RequestBody ContentRegistrarRequest request) throws Exception {
-        logger.info("transaction request received");
+        logger.info("Content registrar request received");
         EthSendTransaction ethSendTransaction = registrarService.sendRequest(request);
         if (ethSendTransaction.hasError()) {
             Response.Error error = ethSendTransaction.getError();
@@ -60,7 +60,7 @@ public class RegistrarController {
 
     @RequestMapping(path = "/confirm/registration", method = RequestMethod.GET)
     ResponseEntity<?> confirmRegistration(@RequestParam String transactionHash) throws Exception {
-        logger.info("block number request received");
+        logger.info("Block number request received for transaction: " + transactionHash);
         TransactionReceipt transactionReceipt = registrarService.getTransactionReceipt(transactionHash);
         return ResponseEntity.ok(new Block(transactionReceipt.getBlockNumber().toString(), etherScanSite));
     }
