@@ -1,3 +1,13 @@
+/*
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See MIT Licence for further details.
+<https://opensource.org/licenses/MIT>.
+
+*/
+
 package io.veredictum.registrar.service;
 
 import io.veredictum.registrar.model.ContentRegistrarRequest;
@@ -35,6 +45,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service to interact with Ethereum node
+ *
+ * @author Fei Yang <fei.yang@veredictum.io>
+ */
 @Service
 public class RegistrarService {
 
