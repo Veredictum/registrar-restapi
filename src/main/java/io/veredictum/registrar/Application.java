@@ -1,4 +1,4 @@
-package io.veredictum.registrar;/*
+/*
 
 This software is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -7,6 +7,8 @@ See MIT Licence for further details.
 <https://opensource.org/licenses/MIT>.
 
 */
+
+package io.veredictum.registrar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,3 +1,13 @@
+/*
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+See MIT Licence for further details.
+<https://opensource.org/licenses/MIT>.
+
+*/
+
 package io.veredictum.registrar;
 
 import org.slf4j.Logger;
@@ -36,6 +46,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * RESTful API end point
+ *
+ * @author Fei Yang <fei.yang@veredictum.io>
+ */
 @RestController
 public class RegistrarController {
 
