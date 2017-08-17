@@ -10,12 +10,11 @@ See MIT Licence for further details.
 
 package io.veredictum.registrar;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 /**
  * Allow Cross-origin resource sharing
@@ -24,26 +23,20 @@ import java.io.IOException;
  */
 
 @Component
-public class SimpleCorsFilter implements Filter {
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+public class SimpleCorsFilter extends CorsFilter {
 
+    public SimpleCorsFilter() {
+        super(configurationSource());
     }
 
-    @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) res;
-        response.setHeader("Access-Control-Allow-Origin", request.getRemoteHost()  + ":" + request.getRemotePort());
-        if("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            chain.doFilter(req, res);
-        }
-    }
-
-    @Override
-    public void destroy() {
-
+    private static UrlBasedCorsConfigurationSource configurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }
