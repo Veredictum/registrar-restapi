@@ -8,7 +8,7 @@ See MIT Licence for further details.
 
 */
 
-package io.veredictum.registrar;
+package io.veredictum.registrar.model;
 
 
 /**

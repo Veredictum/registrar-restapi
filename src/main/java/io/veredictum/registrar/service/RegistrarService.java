@@ -1,5 +1,7 @@
-package io.veredictum.registrar;
+package io.veredictum.registrar.service;
 
+import io.veredictum.registrar.model.ContentRegistrarRequest;
+import io.veredictum.registrar.util.Hasher;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.web3j.abi.FunctionEncoder;

@@ -8,8 +8,12 @@ See MIT Licence for further details.
 
 */
 
-package io.veredictum.registrar;
+package io.veredictum.registrar.web;
 
+import io.veredictum.registrar.model.Block;
+import io.veredictum.registrar.model.ContentRegistrarRequest;
+import io.veredictum.registrar.model.Transaction;
+import io.veredictum.registrar.service.RegistrarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
