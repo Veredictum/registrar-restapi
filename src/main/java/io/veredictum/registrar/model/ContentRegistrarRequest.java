@@ -8,7 +8,9 @@ See MIT Licence for further details.
 
 */
 
-package io.veredictum.registrar;
+package io.veredictum.registrar.model;
+
+import java.util.Arrays;
 
 /**
  * It represents a request to register content ownership from client
@@ -65,5 +67,16 @@ public class ContentRegistrarRequest {
 
     public void setTranscodedFileHash(byte[] transcodedFileHash) {
         this.transcodedFileHash = transcodedFileHash;
+    }
+
+    @Override
+    public String toString() {
+        return "ContentRegistrarRequest{" +
+                "addresses=" + Arrays.toString(addresses) +
+                ", shares=" + Arrays.toString(shares) +
+                ", contentId=" + contentId +
+                ", originalFileHash=" + Arrays.toString(originalFileHash) +
+                ", transcodedFileHash=" + Arrays.toString(transcodedFileHash) +
+                '}';
     }
 }

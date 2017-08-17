@@ -8,7 +8,7 @@ See MIT Licence for further details.
 
 */
 
-package io.veredictum.registrar;
+package io.veredictum.registrar.model;
 
 /**
  * Simple bean to be converted to JSON and sent to client
