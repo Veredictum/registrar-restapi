@@ -78,7 +78,8 @@ public class RegistrarService {
 
 
     public EthSendTransaction sendRequest(ContentRegistrarRequest request) throws Exception {
-        Web3j web3j = Web3j.build(new HttpService());
+        
+	Web3j web3j = Web3j.build(new HttpService("https://ropsten.infura.io/1jpfyHoExI92PJxpbCWb"));
         request.setContentId(System.currentTimeMillis()); // set dummy unique contentId
         request.setOriginalFileHash(Hasher.hashString("" + request.getContentId()));
         request.setTranscodedFileHash(Hasher.hashString("" + (Long.MAX_VALUE - request.getContentId())));
@@ -107,9 +108,9 @@ public class RegistrarService {
     }
 
     public TransactionReceipt getTransactionReceipt(String transactionHash) throws TransactionTimeoutException, InterruptedException, IOException {
-        Web3j web3j = Web3j.build(new HttpService());
-        Optional<TransactionReceipt> receiptOptional =
-                sendTransactionReceiptRequest(web3j, transactionHash);
+        
+	Web3j web3j = Web3j.build(new HttpService("https://ropsten.infura.io/1jpfyHoExI92PJxpbCWb"));
+        Optional<TransactionReceipt> receiptOptional = sendTransactionReceiptRequest(web3j, transactionHash);
         for (int i = 0; i < ATTEMPTS; i++) {
             if (!receiptOptional.isPresent()) {
                 Thread.sleep(SLEEP_DURATION);
@@ -126,8 +127,8 @@ public class RegistrarService {
     }
 
     private Optional<TransactionReceipt> sendTransactionReceiptRequest(Web3j web3j, String transactionHash) throws IOException {
-        EthGetTransactionReceipt transactionReceipt =
-                web3j.ethGetTransactionReceipt(transactionHash).send();
+        
+	EthGetTransactionReceipt transactionReceipt = web3j.ethGetTransactionReceipt(transactionHash).send();
         if (transactionReceipt.hasError()) {
             throw new RuntimeException("Error processing request: " + transactionReceipt.getError().getMessage());
         }

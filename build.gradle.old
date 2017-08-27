@@ -1,4 +1,4 @@
-/* This buildscript is only needed for apply plugin: 'org.springframework.boot' */
+/* needed for apply plugin: 'org.springframework.boot' */
 buildscript {
     repositories {
         mavenCentral()
@@ -16,6 +16,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+//apply plugin: 'gradle-one-jar'
 
 /* these variables set after java plugin is applied */
 sourceCompatibility = 1.8
@@ -26,9 +27,27 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.github.rholder:gradle-one-jar:1.0.4' // is this needed?
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
     }
 }
+
+/*
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+    }
+}
+*/
+
+
 
 repositories {
     mavenCentral()
@@ -47,6 +66,36 @@ dependencies {
             'org.junit.jupiter:junit-jupiter-engine:5.0.0-RC2'
     )
 }
+
+
+/*
+jar {
+    manifest.attributes(
+            "Main-Class": "io.veredictum.registrar.Application",
+            "Class-Path": "org/springframework/boot/spring-boot/1.5.1.RELEASE/1.5.1.RELEASE.jar"
+    )
+}
+
+jar {
+    doFirst {
+        manifest {
+            if (!configurations.compile.isEmpty()) {
+                attributes(
+                        'Class-Path': configurations.compile.collect{it.toURI().toString()}.join(' '),
+                        'Main-Class': 'com.example.Main')
+            }
+        }
+    }
+}
+
+
+
+task buildOneJar(type: OneJar) {
+    mainClass = 'home.ramboze.dev.veredictum.registrar-api.io.veredictum.registrar'
+}
+*/
+
+
 
 
 
